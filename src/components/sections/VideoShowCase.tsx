@@ -44,6 +44,7 @@ const VideoShowCase = () => {
             md: "repeat(2, 1fr)",
             lg: "repeat(4, 1fr)",
           }}
+          maxW={"100vw"}
           gap={6}
         >
           {videos &&
@@ -57,7 +58,6 @@ const VideoShowCase = () => {
                 borderRadius={6}
               >
                 <SocialButton
-                  label="test"
                   href={video["anchor-link"]}
                   w={"100%"}
                   maxW={"100vw"}
@@ -66,7 +66,7 @@ const VideoShowCase = () => {
                 >
                   {video["video-poster"] !== "null" ? (
                     <video
-                      src={video["anchor-link"]}
+                      src={video["video-src"]}
                       controls
                       style={{
                         maxHeight: 336,

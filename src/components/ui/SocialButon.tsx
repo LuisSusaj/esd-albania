@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 interface SocialButtonProps {
   children: ReactNode;
-  label: string;
+  label?: string;
   href: string;
   w?: string;
   h?: string;
@@ -31,7 +31,7 @@ const SocialButton = ({ children, label, href, w, h, rounded}: SocialButtonProps
         bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
       }}
     >
-      <VisuallyHidden>{label}</VisuallyHidden>
+      {label && <VisuallyHidden>{label}</VisuallyHidden>}
       {children}
     </chakra.button>
   );
