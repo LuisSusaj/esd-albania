@@ -12,7 +12,6 @@ export default function Home() {
         subtitle="hero_text"
         image={hero}
         ctaText="hero_btn"
-        ctaLink="/signup"
       />
       <AboutUs />
       <VideoShowCase />

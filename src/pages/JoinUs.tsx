@@ -1,11 +1,11 @@
-import React from 'react'
-
-type Props = {}
+import LandingLayout from "../components/layouts/Landing";
+import { Text } from "@chakra-ui/react";
+type Props = {};
 
 const JoinUs = (props: Props) => {
-  return (
-    <div>JoinUs</div>
-  )
-}
+  return <LandingLayout>
+    <Text>Join Us</Text>
+  </LandingLayout>;
+};
 
-export default JoinUs
+export default JoinUs;
