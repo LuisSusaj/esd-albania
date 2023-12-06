@@ -8,7 +8,7 @@ export default function SwitchColorMode() {
   return (
     <Button
       onClick={toggleColorMode}
-      ml={8}
+      ml={[0, 0, 8, 8]}
       bg={"transparent"}
       _hover={{ bg: "transparent" }}
     >
