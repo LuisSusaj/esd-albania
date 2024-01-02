@@ -1,4 +1,3 @@
-import { HeroProps } from "../../interfaces/HeroInterface";
 import {
   Box,
   Button,
@@ -8,10 +7,13 @@ import {
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
+import { HeroProps } from "../../interfaces/HeroInterface";
 import I18n from "../../i18n/I18n";
 import { useColorMode } from "@chakra-ui/react";
 import ModalContainer from "../modal/Modal";
 import SignUpForm from "./SignUpForm";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Hero({
   title,
@@ -29,6 +31,10 @@ export default function Hero({
     onOpen: onSignUpOpen,
     onClose: onSignUpClose,
   } = useDisclosure();
+  const [animation, setAnimation] = useState(150);
+  useEffect(() => {
+    setAnimation(0);
+  }, []);
   return (
     <Flex
       align="center"
@@ -83,7 +89,13 @@ export default function Hero({
         </Button>
       </Stack>
       <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>
-        <Image src={image} sizes="100%" rounded="1rem" shadow="2xl" />
+        <motion.div
+          animate={{ x: animation }}
+          initial={false}
+          transition={{ ease: "easeOut", duration: 0.8 }}
+        >
+          <Image src={image} sizes="100%" rounded="1rem" shadow="2xl" />
+        </motion.div>
       </Box>
       <ModalContainer
         isOpen={isSignUpOpen}

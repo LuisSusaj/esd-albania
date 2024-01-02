@@ -15,7 +15,7 @@ import LanguageSwitcher from "../ui/LanguageSwitches";
 import SwitchColorMode from "../ui/SwitchColorMode";
 import ModalContainer from "../modal/Modal";
 import AuthenticationForm from "./AuthenticationForm";
-import SignUpForm from "./SignUpForm";
+// import SignUpForm from "./SignUpForm";
 
 const Header = (props: object) => {
   const [show, setShow] = useState(false);
@@ -28,11 +28,11 @@ const Header = (props: object) => {
     onOpen: onLoginOpen,
     onClose: onLoginClose,
   } = useDisclosure();
-  const {
-    isOpen: isSignUpOpen,
-    onOpen: onSignUpOpen,
-    onClose: onSignUpClose,
-  } = useDisclosure();
+  // const {
+  //   isOpen: isSignUpOpen,
+  //   onOpen: onSignUpOpen,
+  //   onClose: onSignUpClose,
+  // } = useDisclosure();
   return (
     <Flex
       as="nav"
@@ -73,7 +73,7 @@ const Header = (props: object) => {
           <MenuItem to="/news">
             <I18n text="nav_news" />{" "}
           </MenuItem>
-          <Button
+          {/* <Button
             size="sm"
             rounded="md"
             color={[btnBg, "btnBg.500", "white", "white"]}
@@ -86,8 +86,8 @@ const Header = (props: object) => {
             onClick={onSignUpOpen}
           >
             <I18n text="nav_create_account" />
-          </Button>
-          <Button
+          </Button> */}
+          {/* <Button
             size="sm"
             rounded="md"
             color={[btnBg, "btnBg.500", "white", "white"]}
@@ -100,21 +100,21 @@ const Header = (props: object) => {
             onClick={onLoginOpen}
           >
             <I18n text="nav_log_in" />
-          </Button>
-          <ModalContainer
+          </Button> */}
+          {/* <ModalContainer
             isOpen={isSignUpOpen}
             onClose={() => onSignUpClose()}
             title="Sign Up Form"
           >
             <SignUpForm />
-          </ModalContainer>
-          <ModalContainer
+          </ModalContainer> */}
+          {/* <ModalContainer
             isOpen={isLoginOpen}
             onClose={() => onLoginClose()}
             title="Login Form"
           >
             <AuthenticationForm />
-          </ModalContainer>
+          </ModalContainer> */}
           <LanguageSwitcher />
           <SwitchColorMode />
         </Flex>

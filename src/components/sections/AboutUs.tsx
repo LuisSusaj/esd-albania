@@ -1,8 +1,14 @@
 import { Flex, Heading, Text, Stack, Image, Box } from "@chakra-ui/react";
 import I18n from "../../i18n/I18n";
 import { aboutUs } from "../../assets";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const AboutUs = () => {
+  const [animation, setAnimation] = useState(-150);
+  useEffect(()=>{
+    setAnimation(0);
+  }, [])
   return (
     <Flex
       align="center"
@@ -13,7 +19,13 @@ const AboutUs = () => {
       mb={16}
     >
       <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>
+      <motion.div
+          animate={{ x: animation }}
+          initial={false}
+          transition={{ ease: "easeOut", duration: 0.8 }}
+        >
         <Image src={aboutUs} sizes="100%" rounded="1rem" shadow="2xl" />
+        </motion.div>
       </Box>
       <Stack
         spacing={4}
