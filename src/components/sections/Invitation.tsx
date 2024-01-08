@@ -1,10 +1,19 @@
-import { Flex, Heading, Text, Stack, Image, Box, Fade } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Text,
+  Stack,
+  Image,
+  Box,
+  Fade,
+  Button,
+} from "@chakra-ui/react";
 import I18n from "../../i18n/I18n";
-import { aboutUs } from "../../assets";
-import { motion } from "framer-motion";
+import { founder } from "../../assets";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const AboutUs = () => {
+const Invitation = () => {
   const [animation, setAnimation] = useState(false);
   useEffect(() => {
     setAnimation(true);
@@ -19,9 +28,6 @@ const AboutUs = () => {
         px={8}
         mb={16}
       >
-        <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>
-          <Image src={aboutUs} sizes="100%" rounded="1rem" shadow="2xl" />
-        </Box>
         <Stack
           spacing={4}
           align={["center", "center", "flex-start", "flex-start"]}
@@ -35,14 +41,22 @@ const AboutUs = () => {
             color="primary.800"
             textAlign={["center", "center", "left", "left"]}
           >
-            <I18n text="about_us_title" />
+            <I18n text="invitation_title" />
           </Heading>
           <Text textAlign={["center", "center", "left", "left"]}>
-            <I18n text="about_us_description" />
+            <I18n text="invitation_desc" />
           </Text>
+          <Button>
+            <Link to={'/join_us'}>
+              <I18n text="nav_join_us" />
+            </Link>
+          </Button>
         </Stack>
+        <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>
+          <Image src={founder} sizes="100%" rounded="1rem" shadow="2xl" />
+        </Box>
       </Flex>
     </Fade>
   );
 };
-export default AboutUs;
+export default Invitation;

@@ -13,8 +13,8 @@ import MenuIcon from "../../assets/MenuIcon";
 import I18n from "../../i18n/I18n";
 import LanguageSwitcher from "../ui/LanguageSwitches";
 import SwitchColorMode from "../ui/SwitchColorMode";
-import ModalContainer from "../modal/Modal";
-import AuthenticationForm from "./AuthenticationForm";
+// import ModalContainer from "../modal/Modal";
+// import AuthenticationForm from "./AuthenticationForm";
 // import SignUpForm from "./SignUpForm";
 
 const Header = (props: object) => {
@@ -23,11 +23,11 @@ const Header = (props: object) => {
   const { colorMode } = useColorMode();
   const headerFooterBg = `${colorMode}.headerFooterBg`;
   const btnBg = `${colorMode}.btnBg`;
-  const {
-    isOpen: isLoginOpen,
-    onOpen: onLoginOpen,
-    onClose: onLoginClose,
-  } = useDisclosure();
+  // const {
+  //   isOpen: isLoginOpen,
+  //   onOpen: onLoginOpen,
+  //   onClose: onLoginClose,
+  // } = useDisclosure();
   // const {
   //   isOpen: isSignUpOpen,
   //   onOpen: onSignUpOpen,
@@ -40,14 +40,14 @@ const Header = (props: object) => {
       justify="space-between"
       wrap="wrap"
       w="100%"
-      mb={8}
-      p={[8, 8, 8, 8, "2rem calc((100vw - 1200px)/2)"]}
+      // mb={8}
+      p={[8, 8, 8, 8, 8]}
       bg={[btnBg, btnBg, headerFooterBg, headerFooterBg]}
       color={["white", "white", btnBg, btnBg]}
       {...props}
     >
       <Flex align="center">
-        <Logo w="100px" />
+        <Logo w="180px" />
       </Flex>
 
       <Box display={{ base: "block", md: "none" }} onClick={toggleMenu}>
@@ -67,11 +67,14 @@ const Header = (props: object) => {
           <MenuItem to="/">
             <I18n text="nav_home" />
           </MenuItem>
+          <MenuItem to="/about_us">
+            <I18n text="nav_about_us" />{" "}
+          </MenuItem>
+          <MenuItem to="/collaborators">
+            <I18n text="nav_collaborators" />
+          </MenuItem>
           <MenuItem to="/join_us">
             <I18n text="nav_join_us" />
-          </MenuItem>
-          <MenuItem to="/news">
-            <I18n text="nav_news" />{" "}
           </MenuItem>
           {/* <Button
             size="sm"
@@ -115,6 +118,18 @@ const Header = (props: object) => {
           >
             <AuthenticationForm />
           </ModalContainer> */}
+        </Flex>
+      </Box>
+      <Box
+        display={{ base: show ? "block" : "none", md: "block" }}
+        flexBasis={{ base: "100%", md: "auto" }}
+      >
+        <Flex
+          align="center"
+          justify={["center", "space-between", "flex-end", "flex-end"]}
+          direction={["column", "column", "row", "row"]}
+          pt={[4, 4, 0, 0]}
+        >
           <LanguageSwitcher />
           <SwitchColorMode />
         </Flex>

@@ -1,34 +1,51 @@
+import { Fragment } from "react";
 import useFetch from "../../hooks/useFetch";
-import { Grid, Flex, GridItem, Heading, Stack } from "@chakra-ui/react";
-import { useColorMode } from "@chakra-ui/react";
+import {
+  Grid,
+  Flex,
+  GridItem,
+  Heading,
+  Stack,
+  // Container,
+} from "@chakra-ui/react";
+import { useColorMode, useTheme } from "@chakra-ui/react";
 import I18n from "../../i18n/I18n";
 import SocialButton from "../ui/SocialButon";
 import fetchData from "../../utils/fetchData";
 import { useState, useEffect } from "react";
 import GridSkeletonLoading from "../ui/GridSkeletonLoading";
 import formatVideoData from "../../utils/formatVideoData";
+import { VideoPoster } from "../../interfaces/VideoPoster";
+import endpoints from "../../constants/endpoint";
+import { Instagram } from "../../constants/endpoints";
+// import ChakraCarousel from "./Carousel/Carousel";
 
 const VideoShowCase = () => {
-  const { response, error } = useFetch({
-    url: "https://backend.zyro.com/u1/instagram/token/A856R6O0y0uEWped/zVgy03",
-    method: "get",
-  });
   const { colorMode } = useColorMode();
+  const theme = useTheme();
   const gridItemBg = `${colorMode}.headerFooterBg`;
+  const uiColor = theme.colors.gray[`${colorMode == "light" ? 50 : 900}`];
+  const { url, token, file, videos }: Instagram = endpoints.instagram;
+  const tokenUrl = `${url}${token}${file}`;
+  const { response, error } = useFetch({
+    url: tokenUrl,
+  });
   const { accessToken }: any = response || "";
   const [videoResponse, setVideoResponse] = useState(null);
   const [videoError, setVideoError] = useState(null);
   const [videoLoading, setVideoLoading] = useState(true);
-  const [formatedData, setFormatedData] = useState([]);
-  const maxVideoShowcase = 16;
-  
+  const [formatedData, setFormatedData] = useState<VideoPoster[] | undefined>(
+    []
+  );
+  const maxVideoShowcase = 8;
+
   useEffect(() => {
     accessToken &&
       fetchData({
-        url: "https://graph.instagram.com/me/media?",
+        url: videos,
         method: "get",
         params: {
-          fields: "id,permalink,caption,media_url,thumbnail_url",
+          fields: "permalink,media_url,thumbnail_url",
           access_token: accessToken,
         },
         setResponse: setVideoResponse,
@@ -46,37 +63,6 @@ const VideoShowCase = () => {
     setFormatedData(formatedData);
   }, [videoResponse]);
 
-  if (videoLoading) {
-    return (
-      <Flex
-        align="center"
-        justify={{ base: "center", md: "space-around", xl: "space-between" }}
-        direction={{ base: "column-reverse", md: "row" }}
-        wrap="nowrap"
-        px={8}
-        mb={16}
-        maxW={1200}
-      >
-        <Stack
-          spacing={4}
-          align={["center", "center", "flex-start", "flex-start"]}
-        >
-          <GridSkeletonLoading
-            templateColumns={{
-              base: "repeat(1, 1fr)",
-              md: "repeat(2, 1fr)",
-              lg: "repeat(4, 1fr)",
-            }}
-            maxW={"100vw"}
-            gap={6}
-            length={maxVideoShowcase}
-            height={280}
-            minWidth="280px"
-          />
-        </Stack>
-      </Flex>
-    );
-  }
   if (error || videoError) {
     return <p>Error fetching data : {error}</p>;
   }
@@ -87,60 +73,107 @@ const VideoShowCase = () => {
       direction={{ base: "column-reverse", md: "row" }}
       wrap="nowrap"
       px={8}
+      pb={8}
       mb={16}
-      maxW={1200}
+      bg={uiColor}
     >
-      <Stack
-        spacing={4}
-        align={["center", "center", "flex-start", "flex-start"]}
-      >
-        <Heading>
+      <Stack spacing={4} align="center">
+        <Heading mb={6} pt={2}>
           <I18n text="video_showcase_title" />
         </Heading>
-        <Grid
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            md: "repeat(2, 1fr)",
-            lg: "repeat(4, 1fr)",
-          }}
-          maxW={"100vw"}
-          gap={6}
-        >
-          {formatedData &&
-            formatedData.map((video: any, i: number) => (
-              <GridItem
-                key={i}
-                h="100%"
-                display={"flex"}
-                alignItems={"center"}
-                bg={gridItemBg}
-                borderRadius={6}
-              >
-                <SocialButton
-                  href={video["link"]}
-                  w={"100%"}
-                  maxW={"100vw"}
-                  h={"100%"}
-                  rounded={"6px"}
+        {videoLoading ? (
+          <GridSkeletonLoading
+            templateColumns={{
+              base: "repeat(2, 1fr)",
+              md: "repeat(4, 1fr)",
+              lg: "repeat(8, 1fr)",
+            }}
+            maxW={"100vw"}
+            gap={6}
+            length={maxVideoShowcase}
+            height={280}
+            minWidth="280px"
+          />
+        ) : (
+          <Grid
+            templateColumns={{
+              base: "repeat(2, 1fr)",
+              md: "repeat(4, 1fr)",
+              lg: "repeat(8, 1fr)",
+            }}
+            maxW={"100vw"}
+            gap={6}
+          >
+            {formatedData &&
+              formatedData.map((video: any, i: number) => (
+                <GridItem
+                  key={i}
+                  h="100%"
+                  display={"flex"}
+                  alignItems={"center"}
+                  bg={gridItemBg}
+                  borderRadius={6}
                 >
-                  {video["poster"] ? (
-                    <video
-                      src={video["src"]}
-                      controls
-                      style={{
-                        maxHeight: 336,
-                        width: 280,
-                        maxWidth: "calc(100vw - 20px)",
-                      }}
-                      poster={video["poster"]}
-                    ></video>
-                  ) : (
-                    <img src={video["src"]} alt="instagram video showcase" />
-                  )}
-                </SocialButton>
-              </GridItem>
-            ))}
-        </Grid>
+                  <SocialButton
+                    href={video["link"]}
+                    w={"100%"}
+                    maxW={"100vw"}
+                    h={"100%"}
+                    rounded={"6px"}
+                    overflow="hidden"
+                  >
+                    {video["poster"] ? (
+                      <video
+                        src={video["src"]}
+                        controls
+                        poster={video["poster"]}
+                      ></video>
+                    ) : (
+                      <img src={video["src"]} alt="instagram video showcase" />
+                    )}
+                  </SocialButton>
+                </GridItem>
+              ))}
+          </Grid>
+        )}
+        {/* <Container
+          py={8}
+          px={0}
+          maxW={{
+            base: "100%",
+            sm: "35rem",
+            md: "43.75rem",
+            lg: "57.5rem",
+            xl: "75rem",
+            xxl: "87.5rem",
+          }}
+        >
+          <ChakraCarousel gap={32}>
+            {formatedData
+              ? formatedData.map((video: VideoPoster, i: number) => (
+                  <SocialButton
+                    href={video["link"]}
+                    w={"100%"}
+                    maxW={"100vw"}
+                    h={"100%"}
+                    rounded={"6px"}
+                    overflow="hidden"
+                    key={i}
+                  >
+                    {video["poster"] ? (
+                      <video
+                        src={video["src"]}
+                        controls
+                        poster={video["poster"]}
+                      ></video>
+                    ) : (
+                      <img src={video["src"]} alt="instagram video showcase" />
+                    )}
+                  </SocialButton>
+                ))
+              : []}
+          </ChakraCarousel>
+        </Container> */}
       </Stack>
     </Flex>
   );

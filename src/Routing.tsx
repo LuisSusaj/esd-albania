@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Header from "./components/sections/Header";
 import Footer from "./components/sections/Footer";
 import JoinUs from "./pages/JoinUs";
-import News from "./pages/News";
+import CollaboratorsPage from "./pages/Collaborators";
 // import { firebaseConfig } from "./firebase/firebaseConfig";
 // import { initializeApp } from "firebase/app";
 
@@ -15,7 +15,7 @@ export default function Routing() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/join_us" element={<JoinUs />} />
-        <Route path="/news" element={<News />} />
+        <Route path="/collaborators" element={<CollaboratorsPage />} />
       </Routes>
       <Footer />
     </>

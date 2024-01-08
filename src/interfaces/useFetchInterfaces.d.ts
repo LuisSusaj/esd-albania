@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export interface UseFetchRequestProps {
   url: string;
-  method: "get" | "post" | "patch" | "post" | "delete" | "put";
+  method?: "get" | "post" | "patch" | "post" | "delete" | "put";
   params?: object;
   data?: object;
   headers?: object;

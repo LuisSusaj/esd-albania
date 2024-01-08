@@ -1,14 +1,19 @@
+import Hero from "../components/sections/Hero";
 import LandingLayout from "../components/layouts/Landing";
-import { Text, useColorMode } from "@chakra-ui/react";
-type Props = {};
+import { joinUsBanner } from "../assets/index";
+import SummerCamp from "../components/sections/SummerCamp";
+import Collaborators from "../components/sections/Collaborators";
 
-const JoinUs = (props: Props) => {
-  const {colorMode} = useColorMode();
+export default function Home() {
   return (
-    <LandingLayout>
-      
-    </LandingLayout>
+    <>
+      <Hero image={joinUsBanner} width={'max-content'}/>
+      <LandingLayout>
+        <SummerCamp />
+      </LandingLayout>
+      <LandingLayout>
+        <Collaborators />
+      </LandingLayout>
+    </>
   );
-};
-
-export default JoinUs;
+}

@@ -1,9 +1,9 @@
 const lightTheme = {
-  bg:"white",
-  txt:"black",
-  headerFooterBg:"#F7FAFC",
+  bg: "white",
+  txt: "black",
+  headerFooterBg: "#F7FAFC",
   btnBg: "#00a5ab",
-  btnColor:"#fff",
+  btnColor: "#fff",
 };
 
 export default lightTheme;

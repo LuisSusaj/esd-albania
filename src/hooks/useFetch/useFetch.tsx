@@ -3,7 +3,7 @@ import { UseFetchRequestProps } from "../../interfaces/useFetchInterfaces";
 import fetchData from "../../utils/fetchData";
 
 const useFetch = (props: UseFetchRequestProps) => {
-  const { url, method, data, params, headers } = props;
+  const { url, method = "get", data, params, headers } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<null | object>({});
   const [error, setError] = useState(null);

@@ -3,18 +3,21 @@ import LandingLayout from "../components/layouts/Landing";
 import { hero } from "../assets/index";
 import AboutUs from "../components/sections/AboutUs";
 import VideoShowCase from "../components/sections/VideoShowCase";
+import Collaborators from "../components/sections/Collaborators";
+import Invitation from "../components/sections/Invitation";
 
 export default function Home() {
   return (
-    <LandingLayout>
-      <Hero
-        title="hero_title"
-        subtitle="hero_text"
-        image={hero}
-        ctaText="hero_btn"
-      />
-      <AboutUs />
+    <>
+      <Hero image={hero} width={'100%'}/>
+      <LandingLayout>
+        <AboutUs />
+      </LandingLayout>
       <VideoShowCase />
-    </LandingLayout>
+      <LandingLayout>
+        <Invitation />
+        <Collaborators />
+      </LandingLayout>
+    </>
   );
 }

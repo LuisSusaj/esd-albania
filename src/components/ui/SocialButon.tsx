@@ -9,9 +9,10 @@ interface SocialButtonProps {
   h?: string;
   rounded?:string;
   maxW?:string,
+  overflow?:string,
 }
 
-const SocialButton = ({ children, label, href, w, h, rounded}: SocialButtonProps) => {
+const SocialButton = ({ children, label, href, w, h, rounded, overflow}: SocialButtonProps) => {
   return (
     <chakra.button
       bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
@@ -27,6 +28,7 @@ const SocialButton = ({ children, label, href, w, h, rounded}: SocialButtonProps
       transition={"background 0.3s ease"}
       target="_blank"
       rel="noopener noreferrer"
+      overflow={overflow}
       _hover={{
         bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
       }}
